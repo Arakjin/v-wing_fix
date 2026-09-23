@@ -158,6 +158,53 @@ LENGTH` -asetus ei muuttanut virheellistä käyttäytymistä.
   päävalikkoon pelin sulkeutumisen tai jumittumisen sijasta.
 - Yksinpelin aiemmat korjaukset säilyivät toimivina.
 
+## 2026-09-22 – War Moden voittopolun korjaus
+
+### Pelimuodon tausta
+
+War Mode ja Mission eivät olleet mukana V-Wingin alkuperäisessä julkaistussa
+versiossa. Ne ovat Simonin peliin myöhemmin tekemiä lisäyksiä, oletettavasti
+noin 30 vuoden takaa.
+
+Nykyisen binäärin ja pelissä havaittavan käyttäytymisen perusteella tilat
+eivät ilmeisesti ehtineet valmiiksi tai kattavasti testatuiksi julkaisua
+varten. War Modessa on kuitenkin huomattavasti omaa pelilogiikkaa. Mission
+puolestaan näyttää nykyisessä ohjelmassa lähinnä keskeneräiseltä rungolta,
+josta ei ole löytynyt erillistä tehtävä- tai voittologiikkaa. Simo kuvaa 
+näitä muutoksia VWINGFreeware.txt tiedostossa hieman.
+
+### Korjattu ongelma
+
+War Modessa pelaajan kuoltua peli aloittaa pitkän kloonin
+herättämisvaiheen, jonka aikana ruudulla lukee `WAKING THE CLONE`.
+Toisen pelaajan laskeutuminen baselle tämän vaiheen aikana käynnisti
+yleisen moninpelin voittopolun. Kierros päättyi silloin ennen kuin kuolleen
+pelaajan oli tarkoitus palata peliin.
+
+### Toteutetut muutokset
+
+- War Moden kloonin heräämistila ohittaa yleisen moninpelin
+  voittajatarkistuksen.
+- Tarkistus jatkaa olemassa olevaan War Moden omaan aluehallintaan
+  perustuvaan voittotarkistukseen.
+- Yksinpeli sekä muut moninpelitilat jatkavat aiemmin korjattuihin
+  voittopolkuihinsa.
+- Korjausta varten lisättiin yksi LE-loaderin fixup-tietue.
+- 26 tavun apurutiini sijoitettiin ohjelmaosion lopun käyttämättömään
+  täytetilaan. Ohjelmasivujen määrä, tiedoston koko ja muiden osioiden
+  sijainnit eivät muuttuneet.
+- Kehityksen aikaisia diagnostiikkatekstejä tai aikaisempia epäonnistuneita
+  kokeita ei sisälly lopulliseen versioon.
+
+### Testaus
+
+- Baselle meneminen ei enää anna voittoa `WAKING THE CLONE` -vaiheen
+  aikana.
+- Kaikki pelimuodot testattiin eikä niissä havaittu uusia regressioita.
+- Binäärin LE-rakenne, sivukartta ja fixup-taulukko tarkistettiin.
+  Fixup-taulukosta ei kadonnut eikä muuttunut asiaankuulumattomia tietueita.
+- Missioniin ei tehty muutoksia.
+
 ### Korjausten teko
 
 Korjauksissa on hyödynnetty todella paljon tekoälyä. Manuaalisesti näiden korjaaminen olisi lähes mahdotonta alkuperäisen lähdekoodin puuttuessa. 
