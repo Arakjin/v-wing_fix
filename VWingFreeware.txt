@@ -1,0 +1,30 @@
+﻿Tätä kirjoittaessani V-Wingin julkaisusta on aika tarkalleen 30 vuotta. 1995, 1996 vuosina se julkaistiin share-warena. Tällöin rekisteröinti toimi kirjepostilla, ja peli siirtyi disketillä paluupostissa. 
+Itselleni tämän kehittäminen oli opetteluprojekti ohjelmointiin ja lukemattomien tuntien huvinlähde testipelaillessa kaveriporukan kanssa. (Kiitos koko porukalle niistä tunneista, erityisesti Kalle Ojalalle joka myös piirsi muutaman kentän, hioi kieltä, kirjoitti dokumentaatiot ja paljon muuta.)
+	Inspiraationa toimivat toki aiemmat luolalentelyt, eniten ehkä turboraketti ja Auts. V-Wing toivoakseni toi genreen hieman lisää uusia ajatuksia, pitkälti koska kehitysprosessi oli lähinnä “voisikohan tällaisen ominaisuuden tehdä?” ilman suurempaa suunnitelmaa. 
+	Pelistä julkaistiin aikanaan kaksi versiota, (1.91, 1.95). Versio, johon tämä teksti on liitetty, on hieman kehitetty viimeisestä julkaistusta. Versio jäi aikanaan pöytälaatikkoon, pitkälti hieman kesken jääneen uuden pelimoodiajatuksen vuoksi. Versiossa on kaikki aikanaan julkaistu ja muutamia uusia, joita pelin muistavat huomannevat.
+	Tämän version myötä V-Wing vapautuu nyt lopullisesti vapaasti jaettavaksi. On ollut hienoa huomata vuosien varrella, kuinka silloin tällöin joku vieläkin muistaa tämän. Se, että tämä projekti toi iloa monille ohi oman piirini jaksaa lämmittää ja ilahduttaa vuosikymmenienkin jälkeen.
+
+
+Simo Siiriä, 13.9.2026
+
+
+KÄYTTÖ- JA JAKELUEHDOT
+
+V-Wing ja Simo Siiriän siihen tekemä aineisto:
+Copyright © 1995–2026 Simo Siiriä.
+
+Kalle Ojalan peliin tekemä aineisto ja alkuperäinen dokumentaatio:
+Copyright © 1995–1996 Kalle Ojala.
+
+
+Simo Siiriä ja Kalle Ojala antavat kumpikin oman aineistonsa osalta luvan käyttää, kopioida, muokata ja levittää V-Wingiä ja siihen sisältyvää aineistoa vapaasti.
+V-Wingiä ja siihen sisältyvää aineistoa saa käyttää, kopioida, muokata ja levittää edelleen vapaasti. Alkuperäinen peli ja sen tekijä Simo Siiriä on mainittava, eikä muokattua versiota saa esittää alkuperäisenä tai tekijän hyväksymänä versiona.
+
+Tämä ilmoitus on säilytettävä pelin ja siitä tehtyjen muunneltujen versioiden mukana.
+
+Peli toimitetaan sellaisena kuin se on, ilman takuuta sen toimivuudesta tai soveltuvuudesta mihinkään tiettyyn tarkoitukseen.
+
+VWING.DOC on säilytetty tässä paketissa alkuperäisessä muodossaan historiallisista syistä. Sen viittaukset shareware-versioon, rekisteröintiin, rekisteröintimaksuun sekä pelin käyttöä, kopiointia tai levittämistä koskeviin ehtoihin eivät enää ole voimassa. Jos VWING.DOC ja tämän tiedoston käyttö- ja jakeluehdot ovat keskenään ristiriidassa, tämän tiedoston ehdot ovat ensisijaiset.
+Vapaata muokkaamista koskeva lupa koskee Simo Siiriän tekemää peliohjelmaa ja muuta hänen tuottamaansa aineistoa. VWING.DOC-dokumentaatio säilytetään ja levitetään alkuperäisessä muodossaan.
+
+Pelille ei enää ole maksullista rekisteröintiä, eikä VWING.DOC-tiedostossa mainittuun osoitteeseen tule lähettää rahaa tai postia.
