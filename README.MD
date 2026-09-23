@@ -83,3 +83,55 @@ Uusia ajonaikaisia lisätiedostoja ei tarvita. Alkuperäisen paketin
 edelleen. Erillistä COM-loaderia, wrapperia, käynnistysskriptiä tai
 rakennustyökaluja ei tarvita. GUSin on oltava käytössä ja `ULTRASND`:n
 vastattava sen asetuksia.
+
+## 2026-09-16 – Yksinpelitilan palautus
+
+### Korjattu ongelma
+
+Vuoden 2026 freeware-version päävalikossa yhden pelaajan valinta käynnisti
+tavallisen moninpelitilan yhdellä V-wingillä. Pelistä puuttuivat tällöin
+yksinpelin aloitusinfo, varsinainen turret- ja H-wing-haaste, vihollisten
+seuranta sekä yksinpelin oikeat kentän päättymisehdot.
+
+Yksinpelin toteutus oli edelleen kokonaisuudessaan EXE-tiedostossa, mutta
+viisi sen ohjauspolun tarkistusta luki väärää tilakenttää pelaajamäärän
+sijasta. Tämän vuoksi yksinpelirutiini ja sen sisäiset päivitys- ja
+voittotarkistukset jäivät osittain saavuttamattomiksi.
+
+### Toteutetut muutokset
+
+- Päävalikon `START GAME` -haara tarkistaa nyt arvon `Players == 1` ja
+  kutsuu olemassa olevaa yksinpelirutiinia.
+- Kentän yksinpelialustus käyttää samaa pelaajamäärän tarkistusta.
+- Yksinpelin tilanne- ja vihollislaskurien päivitys aktivoituu yhdellä
+  pelaajalla.
+- `AndTheWinnerIs()` siirtyy yhdellä pelaajalla omaan yksinpelin
+  voittotarkistukseensa moninpelin voittajalogiikan sijasta.
+- Yksinpelin sisäinen kentän päättymistarkistus käyttää pelaajamäärää.
+- Turretin tuhoutuminen kasvattaa yksinpelissä `KilledTurrets`-laskuria ja
+  lisää tuhoutumisesta saatavat pisteet.
+- H-wingin tuhoutuminen kasvattaa yksinpelissä `KilledHWings`-laskuria ja
+  lisää tuhoutumisesta saatavat pisteet.
+- LE-loaderin fixup-tietueet päivitettiin vastaamaan uusia
+  `Players`-viittauksia. Loader ei siten palauta vanhoja osoitteita ohjelman
+  käynnistyessä.
+
+Korjaus muuttaa 38 tavua seitsemässä loogisessa kohdassa. Tiedoston koko ja
+LE-rakenne eivät muutu. Muutos rakennettiin puhtaasti aiemmasta
+GUS-korjatusta `VWINGFIX.EXE`:stä; kehityksen aikaiset diagnostiset base- ja
+voittopolkujen ohitukset eivät sisälly lopulliseen tiedostoon.
+
+### Testaus
+
+- Yhden pelaajan tila näyttää ennen kenttää turret-, vaikeusaste- ja muut
+  yksinpelitiedot.
+- Yksinpelissä turretit ja H-wingit ilmestyvät ja toimivat.
+- Kenttä ei pääty baselle menemisestä, jos yksinpelin vihollisia on vielä
+  jäljellä.
+- Loppuruutu näyttää tuhottujen turrettien ja H-wingien määrät oikein.
+  Samalla korjattiin näihin tuhoamisiin liittyvä pistekertymä.
+- Moninpeli käynnistyy edelleen normaalisti.
+
+### Korjausten teko
+
+Korjauksissa on hyödynnetty todella paljon tekoälyä. Manuaalisesti näiden korjaaminen olisi lähes mahdotonta alkuperäisen lähdekoodin puuttuessa. 
