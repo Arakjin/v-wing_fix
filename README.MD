@@ -132,6 +132,32 @@ voittopolkujen ohitukset eivät sisälly lopulliseen tiedostoon.
   Samalla korjattiin näihin tuhoamisiin liittyvä pistekertymä.
 - Moninpeli käynnistyy edelleen normaalisti.
 
+## 2026-09-22 – Moninpelin kentänvaihdon korjaus
+
+### Korjattu ongelma
+
+Moninpelissä kenttä ei päättynyt oikein, kenttä ei vaihtunut ja peli jatkui voittoehtojen täyttymisestä huolimatta. `GAME
+LENGTH` -asetus ei muuttanut virheellistä käyttäytymistä.
+
+### Toteutetut muutokset
+
+- Yleisen moninpelin pelaajatilojen läpikäynti korjattiin säilyttäen
+  alkuperäinen silmukan eteneminen ja pelaajamäärän vertailu.
+- Voittoruudulta poistuminen ohjattiin olemassa olevaan pelin
+  siivous- ja jatkopolkuun.
+- Muutos rakennettiin puhtaasti GUS- ja yksinpelikorjaukset sisältävästä
+  versiosta.
+- Lopullisessa tiedostossa muuttui 16 tavupaikkaa edelliseen versioon
+  verrattuna. Tiedoston koko säilyi ennallaan.
+
+### Testaus
+
+- Moninpeli siirtyy kierroksen ratkettua seuraavaan kenttään oikein.
+- `GAME LENGTH` vaikuttaa ottelun pituuteen odotetusti.
+- Ottelun viimeisen kierroksen jälkeen näytetään voittoruutu ja palataan
+  päävalikkoon pelin sulkeutumisen tai jumittumisen sijasta.
+- Yksinpelin aiemmat korjaukset säilyivät toimivina.
+
 ### Korjausten teko
 
 Korjauksissa on hyödynnetty todella paljon tekoälyä. Manuaalisesti näiden korjaaminen olisi lähes mahdotonta alkuperäisen lähdekoodin puuttuessa. 
