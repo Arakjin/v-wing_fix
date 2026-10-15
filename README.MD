@@ -1,11 +1,12 @@
 # V-Wing bugikorjaus
 V-Wing pelin tultua freewareksi havaitsin tässä useita bugeja, joita koitan korjata.
-havaitut bugit:
+Havaitut ja tässä versiossa korjatut ongelmat:
+
 - Äänet eivät toimi
 - Yksinpeli ei toimi oikein
 - Moninpeli kentän päättyminen kaataa pelin
 - War Mode pelimuoto päättyy liian aikaisin (päättyy toisen pelaajan kuolemaan respawnin sijaan)
-- Mission Mode näyttää olevan keskeneräinen. vaikea sanoa, mikä sen pitäisi olla
+- Mission Mode ei käynnistä yhteistä turret- ja H-wing-haastetta moninpelissä
 
 # VWINGFIX.EXE – muutosloki
 
@@ -166,11 +167,12 @@ War Mode ja Mission eivät olleet mukana V-Wingin alkuperäisessä julkaistussa
 versiossa. Ne ovat Simonin peliin myöhemmin tekemiä lisäyksiä, oletettavasti
 noin 30 vuoden takaa.
 
-Nykyisen binäärin ja pelissä havaittavan käyttäytymisen perusteella tilat
+Tuolloin tutkitun binäärin ja pelissä havaittavan käyttäytymisen perusteella tilat
 eivät ilmeisesti ehtineet valmiiksi tai kattavasti testatuiksi julkaisua
 varten. War Modessa on kuitenkin huomattavasti omaa pelilogiikkaa. Mission
-puolestaan näyttää nykyisessä ohjelmassa lähinnä keskeneräiseltä rungolta,
-josta ei ole löytynyt erillistä tehtävä- tai voittologiikkaa. Simo kuvaa 
+puolestaan näytti lähinnä keskeneräiseltä rungolta,
+josta ei ollut löytynyt erillistä tehtävä- tai voittologiikkaa. Myöhempi
+Mission-tutkimus ja korjaus kuvataan alla. Simo kuvaa
 näitä muutoksia VWINGFreeware.txt tiedostossa hieman.
 
 ### Korjattu ongelma
@@ -205,6 +207,68 @@ pelaajan oli tarkoitus palata peliin.
   Fixup-taulukosta ei kadonnut eikä muuttunut asiaankuulumattomia tietueita.
 - Missioniin ei tehty muutoksia.
 
-### Korjausten teko
+## 2026-10-16 – Mission Moden haastepolun palautus
 
-Korjauksissa on hyödynnetty todella paljon tekoälyä. Manuaalisesti näiden korjaaminen olisi lähes mahdotonta alkuperäisen lähdekoodin puuttuessa. 
+### Korjattu ongelma
+
+Mission käytti usealla pelaajalla tavallisen moninpelin alustus- ja
+voittopolkuja. Yksinpelin turret- ja H-wing-haasteen toimintoja jäi tämän
+vuoksi saavuttamattomiksi.
+
+Aikaisempien Git-versioiden binäärivertailu osoitti, että yksinpelikorjauksen
+seitsemän muutoskohtaa olivat aiemmin tarkistaneet pelimuotoa. Mission
+käytti siis samoja haastepolkuja, jotka yksinpelikorjaus rajasi yhden
+pelaajan käyttöön. Nyt tarkistukset hyväksyvät molemmat tilanteet:
+`Players == 1` tai `Game Mode == Mission`.
+
+### Toteutetut muutokset
+
+- Mission käynnistää 2–4 pelaajalla olemassa olevan haastepelin. Tavoitteena
+  on tuhota turretteja ja H-wingejä yhdessä.
+- Päävalikon käynnistys, kentän haastealustus, bonuksen päivitys ja haasteen
+  päättymistarkistukset käyttävät yhteistä yksinpeli-/Mission-ehtoa.
+- Turrettien ja H-wingien tuhot kartuttavat yhteisiä tuholaskureita ja
+  pisteitä. Yksi tuhottu turret kasvattaa laskuria yhdellä pelaajamäärästä
+  riippumatta.
+- Mission käyttää olemassa olevaa stage-etenemistä ja tulosruutua.
+  Taukoruudulla näkyvät `STAGE`, `TURRETS`, `H-WINGS`, `BONUS` ja `SCORE`.
+- Yhden pelaajan haastepolku, Normal-moninpeli ja War Moden aikaisempi
+  voittopolun korjaus säilytettiin.
+- Pelaajien keskinäistä vahinkoa ei muutettu.
+
+Korjaus rakennettiin War Mode -korjauksen sisältävästä versiosta
+(`ffd4abc`). Seitsemään kohtaan lisättiin kutsut yhteiseen ehtotarkistukseen
+ja sen apurutiineihin. Apukoodi vie 46 tavua ohjelmaosion lopun
+käyttämättömästä täytetilasta. LE-loaderille lisättiin yksi fixup-tietue;
+kaikki 25 345 vanhaa tietuetta säilyivät ennallaan. Tiedostokoko on edelleen
+585 267 tavua, eivätkä objektien koot tai datasivujen sijainnit muuttuneet.
+
+### Pakeneminen ja asetukset
+
+Alkuperäinen eject-/base-sääntö säilytettiin: yhden pelaajan eject ja
+baselle pääsy voi näyttää `ESCAPED!` ja siirtää yhteisen pelin seuraavaan
+kenttään, vaikka muut pelaajat voisivat vielä jatkaa taistelua. Kaikkien
+pelaajien yhteistä pakenemisehtoa ei lisätty.
+
+Haastepeli asettaa omat sääntö- ja vaikeusasetuksensa yksinpelin tavoin.
+Missionin tilastojen jatkuvaa piirtoa tai basen korjauksen pistevähennystä
+ei laajennettu moninpelille; taukoruudun tilastot ovat käytössä.
+
+### Testaus
+
+- Muutetuille x86-koodijaksoille suoritettiin 768 onnistunutta tarkistusta.
+  Mukana olivat pelaajamäärät 1–4, kaikki kolme pelimuotoa ja War-tilalipun
+  molemmat arvot kahdella eri objektien muistiasettelulla.
+- Tarkistettiin haarakohteet, rekisterien säilyminen, pinon tasapaino,
+  turretin tuholaskuri ja pisteet sekä H-wingin määrän vähennys,
+  tuholaskuri ja pisteet.
+- LE-fixupit ja binäärin muutosalueet tarkistettiin erikseen.
+- Käyttäjä kokeili Missionia pelissä ja hyväksyi toiminnan nykyisellä
+  eject-säännöllä. Testattu `VWTEST.EXE` otettiin uudeksi `VWINGFIX.EXE`:ksi.
+
+Tämän version SHA-256:
+`efd17229edbb41cd38fbcec090000ad4f433146fd75d27695c8c16e37bfc0a5f`.
+
+## Korjausten teko
+
+Korjauksissa on hyödynnetty todella paljon tekoälyä. Manuaalisesti näiden korjaaminen olisi lähes mahdotonta alkuperäisen lähdekoodin puuttuessa.
