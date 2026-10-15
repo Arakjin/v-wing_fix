@@ -1,5 +1,9 @@
 # V-Wing bugikorjaus
 V-Wing pelin tultua freewareksi havaitsin tässä useita bugeja, joita koitan korjata.
+
+Pelin nykyinen versiontunnus on `1.95 2026 FIX`. `FIX` erottaa tämän
+korjatun version alkuperäisestä vuoden 2026 freeware-julkaisusta.
+
 Havaitut ja tässä versiossa korjatut ongelmat:
 
 - Äänet eivät toimi
@@ -266,8 +270,26 @@ ei laajennettu moninpelille; taukoruudun tilastot ovat käytössä.
 - Käyttäjä kokeili Missionia pelissä ja hyväksyi toiminnan nykyisellä
   eject-säännöllä. Testattu `VWTEST.EXE` otettiin uudeksi `VWINGFIX.EXE`:ksi.
 
-Tämän version SHA-256:
+Mission-korjauksen jälkeisen version SHA-256:
 `efd17229edbb41cd38fbcec090000ad4f433146fd75d27695c8c16e37bfc0a5f`.
+
+## 2026-10-16 – Korjatun version tunnus
+
+Versionumeroksi vaihdettiin `1.95 2026 FIX` DOS-käynnistystekstissä,
+päävalikossa ja alun tekstivierityksessä. Päävalikon pidempi versionrivi
+keskitettiin uudelleen. Alkuperäiset tekijä- ja copyright-merkinnät
+säilytettiin.
+
+Kaksi pidempää tekstiä sijoitettiin ohjelmaosion käyttämättömään
+täytetilaan ja niiden kaksi LE-fixup-kohdetta päivitettiin. Vieritysteksti
+mahtui alkuperäiseen tilaansa. Tiedostokoko ja sivumäärät säilyivät
+ennallaan, eikä pelilogiikan käskyihin tehty muutoksia. Kaikki 25 346
+fixup-tietuetta tarkistettiin ja tekstien osoitteiden toiminta varmistettiin
+kahdella objektien muistiasettelulla. Tekstien leveydet tarkistettiin
+pelin käyttämien 8 ja 16 pikselin merkkileveyksien mukaan.
+
+Nykyisen `VWINGFIX.EXE`:n SHA-256:
+`0ce98d061216d25ab9cfe75c98deef48842c1b88c2e58bd6fcea2961be7215da`.
 
 ## Korjausten teko
 
